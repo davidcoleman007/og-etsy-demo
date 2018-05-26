@@ -58,6 +58,11 @@ const ajax = {
                   message: req.responseText
                 });
               }
+              break;
+            //todo: errors?
+            default:
+              //todo : something here?
+              break;
           }
         }
       }
