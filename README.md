@@ -11,6 +11,11 @@ cd {project dir}
 py -m SimpleHTTPServer 8000
 ```
 
+please use Chrome and enable this plugin for local dev:
+https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US
+
+The plugin mentioned above enable cors with local dev servers
+
 ## What was done
 
 `main.js`
@@ -67,3 +72,7 @@ I was considering implementing some things like `<ENTER>` to search but I ran ou
 I implemented bookmarkable search results as well as the ability to navigate fwd/back w/o redirect.
 
 Styles are minimal and use etsy orange.
+
+Flex box was used for quick and reliable layout.
+
+Rems were used to allow for simple addition of a core set of media queries which would modify font-size based on device and the page should be almost instantly all-device friendly! :)
