@@ -36,7 +36,8 @@ const ajax = {
       (resolve, reject) => {
         const req = new XMLHttpRequest();
         const parameters = Object.assign({
-          [API_PARAM_KEY]:API_KEY
+          [API_PARAM_KEY]:API_KEY,
+          includes: 'MainImage'
         },data);
         console.log(data);
         const pStr = '?'+
@@ -64,24 +65,37 @@ const ajax = {
   }
 }
 
-const createItem = data => `
-  <li class="etsy-item">
-    <article>
-      <img src="https://lorempixel.com/100/100"/>
-      <summary>${data.name}</summary>
-    </article>
-  </li>
-`;
+const createTemplate = id => {
+  const template = $(`#${id}`);
+  return document.importNode(template.content, true);
+}
+
+const createItem = data => {
+  const item = createTemplate('etsy-item-template')
+  const summary = item.querySelector('summary');
+  const img = item.querySelector('img');
+  img.src = data.MainImage.url_170x135;
+  summary.textContent = data.title;
+  return item;
+}
 
 onSearchClick = (event) => {
   console.log($('#search-input'));
-  ajax.get(LISTINGS_API,{keywords:'sheep'}).then(
+  const {value: searchText} = $('#search-input');
+  ajax.get(LISTINGS_API,{keywords:searchText}).then(
     data => {
       console.log(data);
       const resultsList = $('.results-list');
       while(resultsList.firstChild) {
         resultsList.firstChild.remove();
       }
+      data.results.forEach(
+        result => {
+          const item = createItem(result);
+          console.log(item);
+          resultsList.appendChild(item);
+        }
+      )
     }
   ).catch(
     err => {

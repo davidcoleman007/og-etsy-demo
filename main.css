@@ -20,3 +20,21 @@ body header.search input {
 body header.search button {
   width : 5rem;
 }
+
+ul.results-list {
+  list-style     : none;
+  display        : flex;
+  flex-direction : row;
+  flex-wrap      : wrap;
+}
+
+ul.results-list li {
+  padding : 0;
+  width   : 15rem;
+  margin  : 1rem;
+}
+
+ul.results-list li img {
+  width  : 100%;
+  height : auto;
+}
