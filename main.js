@@ -1,6 +1,5 @@
 document.onreadystatechange = () => {
   const {readyState} = document;
-  console.log('document ready', readyState);
   if(readyState === 'complete') {
     doSearch();
   }
@@ -57,12 +56,10 @@ const ajax = {
           [API_PARAM_KEY]:API_KEY,
           includes: 'MainImage'
         },data);
-        console.log(data);
         const pStr = '?'+
           Object.entries(parameters).map(
             ([key, value]) => `${key}=${encodeURI(value)}`
           ).join('&');
-        console.log(pStr);
         req.open('GET', `${API_BASE}/${api}${pStr}`);
         req.send(null);
         req.onreadystatechange = () => {
@@ -103,7 +100,6 @@ const createItem = data => {
 }
 
 const runSearch = () => {
-  console.log($('#search-input'));
   const {value: searchText} = $('#search-input');
   const resultsList = $('.results-list');
   while(resultsList.firstChild) {
@@ -111,11 +107,9 @@ const runSearch = () => {
   }
   ajax.get(LISTINGS_API,{keywords:searchText}).then(
     data => {
-      console.log(data);
       data.results.forEach(
         result => {
           const item = createItem(result);
-          console.log(item);
           resultsList.appendChild(item);
         }
       )
@@ -128,7 +122,6 @@ const runSearch = () => {
 }
 
 const onSearchClick = (event) => {
-  console.log('pushing state', window.history.state);
   window.history.pushState(
     searchParams(),
     `Search Results For ${searchText}`,
