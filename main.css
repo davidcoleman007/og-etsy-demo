@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+}
+body header.search {
+  background-color : #F56400;
+  padding          : 0.5rem;
+  display          : flex;
+  flex-direction   : row;
+}
+body header.search > * {
+  margin: .5rem;
+}
+
+body header.search input {
+  flex-grow : 1;
+  height    : 2rem;
+  font-size : 1.75rem;
+}
+
+body header.search button {
+  width : 5rem;
+}

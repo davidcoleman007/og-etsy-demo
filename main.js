@@ -64,11 +64,28 @@ const ajax = {
   }
 }
 
+const createItem = data => `
+  <li class="etsy-item">
+    <article>
+      <img src="https://lorempixel.com/100/100"/>
+      <summary>${data.name}</summary>
+    </article>
+  </li>
+`;
+
 onSearchClick = (event) => {
   console.log($('#search-input'));
   ajax.get(LISTINGS_API,{keywords:'sheep'}).then(
     data => {
       console.log(data);
+      const resultsList = $('.results-list');
+      while(resultsList.firstChild) {
+        resultsList.firstChild.remove();
+      }
     }
-  )
+  ).catch(
+    err => {
+      console.error('ERROR!', err);
+    }
+  );
 }
