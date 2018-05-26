@@ -2,8 +2,26 @@ document.onreadystatechange = () => {
   const {readyState} = document;
   console.log('document ready', readyState);
   if(readyState === 'complete') {
-
+    doSearch();
   }
+}
+
+const doSearch = () => {
+  const search = searchParams().get('search');
+  if(search) {
+    $('#search-input').value = search;
+    runSearch();
+  }
+}
+
+window.onpopstate = (event) => {
+  doSearch();
+}
+
+const searchParams = () => {
+  const urlStr = window.location.href;
+  const url = new URL(urlStr);
+  return url.searchParams;
 }
 
 const $ = selector => {
@@ -84,16 +102,16 @@ const createItem = data => {
   return item;
 }
 
-onSearchClick = (event) => {
+const runSearch = () => {
   console.log($('#search-input'));
   const {value: searchText} = $('#search-input');
+  const resultsList = $('.results-list');
+  while(resultsList.firstChild) {
+    resultsList.firstChild.remove();
+  }
   ajax.get(LISTINGS_API,{keywords:searchText}).then(
     data => {
       console.log(data);
-      const resultsList = $('.results-list');
-      while(resultsList.firstChild) {
-        resultsList.firstChild.remove();
-      }
       data.results.forEach(
         result => {
           const item = createItem(result);
@@ -107,4 +125,14 @@ onSearchClick = (event) => {
       console.error('ERROR!', err);
     }
   );
+}
+
+const onSearchClick = (event) => {
+  console.log('pushing state', window.history.state);
+  window.history.pushState(
+    searchParams(),
+    `Search Results For ${searchText}`,
+    '/?search='+searchText
+  );
+  runSearch();
 }

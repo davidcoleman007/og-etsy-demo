@@ -43,10 +43,11 @@ ul.results-list {
 }
 
 ul.results-list li {
-  border: 1px solid #F56400;
+  border  : 1px solid #F56400;
   padding : 0;
-  width   : 15rem;
+  width   : 14.5rem;
   margin  : 1rem;
+  padding : 0.25rem;
 }
 
 ul.results-list li .image img {
@@ -59,4 +60,9 @@ ul.results-list li .image {
   min-height : 135px;
   width      : 100%;
   height     : auto;
+}
+
+li.etsy-item summary {
+  padding     : 0.5rem;
+  font-family : sans-serif;
 }
